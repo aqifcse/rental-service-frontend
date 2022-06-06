@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { ListGroup, Card, Button, Form } from "react-bootstrap";
-import API from "./API";
+import { Button, Form } from "react-bootstrap";
+import Modal from "./Modal";
+import './AddMovie.css';
+import API from "../API";
+
 
 const AddMovie = ({ onAdd }) => {
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
   const [starring, setStarring] = useState("");
-  const [movieId, setMovieId] = useState(null);
   const [movies, setMovies] = useState([]);
+
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     refreshMovies();
@@ -17,10 +22,7 @@ const AddMovie = ({ onAdd }) => {
     API.get("/")
       .then((res) => {
         setMovies(res.data);
-        // setName(res[0].name)
-        // setGenre(res[0].genre)
-        // setStarring(res[0].starring)
-        // setMovieId(res[0].id)
+
       })
       .catch(console.error);
   };
@@ -31,10 +33,10 @@ const AddMovie = ({ onAdd }) => {
     API.post("/", item).then(() => refreshMovies());
   };
 
-  const onUpdate = (id) => {
-    let item = { name };
-    API.patch(`/${id}/`, item).then((res) => refreshMovies());
-  };
+  // const onUpdate = (id) => {
+  //   let item = { name };
+  //   API.patch(`/${id}/`, item).then((res) => refreshMovies());
+  // };
 
   const onDelete = (id) => {
     API.delete(`/${id}/`).then((res) => refreshMovies());
@@ -45,62 +47,35 @@ const AddMovie = ({ onAdd }) => {
     setName(item.name);
     setGenre(item.genre);
     setStarring(item.starring);
-    setMovieId(item.id);
   }
 
   return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-4">
-          <h3 className="float-left">Create a new Movie</h3>
           <Form onSubmit={onSubmit} className="mt-4">
-            <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>{movieId}Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicGenre">
-              <Form.Label>Genre</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Genre"
-                value={genre}
-                onChange={(e) => setGenre(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicStarring">
-              <Form.Label>Starring</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Starring"
-                value={starring}
-                onChange={(e) => setStarring(e.target.value)}
-              />
-            </Form.Group>
-
-            <div className="float-right">
+            <div className="position-absolute top-50 start-50">
               <Button
+                className="openModalBtn"
+                onClick={() => {
+                  setModalOpen(true);
+                }}
                 variant="primary"
-                type="submit"
-                onClick={onSubmit}
-                className="mx-2"
               >
-                Save
+                Book
               </Button>
+              {modalOpen && <Modal setOpenModal={setModalOpen} />}
               <Button
                 variant="primary"
                 type="button"
-                onClick={() => onUpdate(movieId)}
-                className="mx-2"
+                onClick={() => {
+                  setModalOpen(true);
+                }}
+                className="openModalBtn"
               >
-                Update
+                Return
               </Button>
+              {modalOpen && <Modal setOpenModal={setModalOpen} />}
             </div>
           </Form>
         </div>
