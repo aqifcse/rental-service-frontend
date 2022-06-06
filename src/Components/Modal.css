@@ -1,11 +1,11 @@
 .modalBackground {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(200, 200, 200);
+    width: 50vw;
+    height: 50vh;
+    background-color: white;
     position: fixed;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
   }
   
   .modalContainer {
@@ -21,7 +21,7 @@
   
   .modalContainer .title {
     display: inline-block;
-    text-align: center;
+    text-align: left;
     margin-top: 10px;
   }
   
@@ -40,17 +40,17 @@
   .modalContainer .body {
     flex: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
     font-size: 1.7rem;
-    text-align: center;
+    text-align: left;
   }
   
   .modalContainer .footer {
     flex: 20%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
   }
   
   .modalContainer .footer button {

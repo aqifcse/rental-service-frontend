@@ -33,11 +33,6 @@ const AddMovie = ({ onAdd }) => {
     API.post("/", item).then(() => refreshMovies());
   };
 
-  // const onUpdate = (id) => {
-  //   let item = { name };
-  //   API.patch(`/${id}/`, item).then((res) => refreshMovies());
-  // };
-
   const onDelete = (id) => {
     API.delete(`/${id}/`).then((res) => refreshMovies());
   };
@@ -48,7 +43,6 @@ const AddMovie = ({ onAdd }) => {
     setGenre(item.genre);
     setStarring(item.starring);
   }
-
   return (
     <div className="container mt-5">
       <div className="row">
@@ -83,7 +77,6 @@ const AddMovie = ({ onAdd }) => {
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Movie Name</th>
                 <th scope="col">Genre</th>
                 <th scope="col">Starring</th>
@@ -94,7 +87,6 @@ const AddMovie = ({ onAdd }) => {
               {movies.map((movie, index) => {
                 return (
                   <tr key="">
-                    <th scope="row">{movie.id}</th>
                     <td> {movie.name}</td>
                     <td>{movie.genre}</td>
                     <td>{movie.starring}</td>
