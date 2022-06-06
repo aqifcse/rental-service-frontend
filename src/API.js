@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: "http://127.0.0.1:8000/rental/movies",
+    baseURL: "http://morning-sands-52405.herokuapp.com/rental/movies",
     headers: {
         'Accept':'application/json',
         'Content-Type':'application/json',
