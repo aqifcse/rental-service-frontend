@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
-import Modal from "./Modal";
+import BookModal from "./BookModal";
 import './AddMovie.css';
 import API from "../API";
 
@@ -58,7 +58,7 @@ const AddMovie = ({ onAdd }) => {
               >
                 Book
               </Button>
-              {modalOpen && <Modal setOpenModal={setModalOpen} />}
+              {modalOpen && <BookModal setOpenModal={setModalOpen} />}
               <Button
                 variant="primary"
                 type="button"
@@ -69,7 +69,7 @@ const AddMovie = ({ onAdd }) => {
               >
                 Return
               </Button>
-              {modalOpen && <Modal setOpenModal={setModalOpen} />}
+              {modalOpen && <returnModal setOpenModal={setModalOpen} />}
             </div>
           </Form>
         </div>
