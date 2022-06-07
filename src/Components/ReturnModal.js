@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import React from 'react';
 import Select from 'react-select';
+import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./BookModal.css";
+import "./ReturnModal.css";
 
 const actions = [
-  { label: "Add", value: 1 },
-  { label: "Edit", value: 2 },
-  { label: "Delete", value: 3 }
-];
+    { label: "Add", value: 1 },
+    { label: "Edit", value: 2 },
+    { label: "Delete", value: 3 }
+  ];
 
-function BookModal({ setOpenBookModal }) {
-
-  const [value, onChange] = useState([new Date(), new Date()]);
+function ReturnModal({ setOpenReturnModal }) {
   
   return (
     <div className="modalBackground">
@@ -21,13 +19,13 @@ function BookModal({ setOpenBookModal }) {
       <div className="titleCloseBtn">
           <button
             onClick={() => {
-              setOpenBookModal(false);
+              setOpenReturnModal(false);
             }}
           >
             X
           </button>
         </div>
-        <h1>Book a Product</h1>
+        <h1>Return a Product</h1>
 
         <div className="container">
           <div className="row">
@@ -39,14 +37,18 @@ function BookModal({ setOpenBookModal }) {
           </div>
         </div>
 
-        <div>
-          <DateRangePicker onChange={onChange} value={value} />
-        </div>
+        <Form className="mt-4">
+            <Form.Group className="mb-3" controlId="formBasicName">
+              <Form.Control
+                type="text"
+              />
+            </Form.Group>
+        </Form>
         
         <div className="footer">
           <button
             onClick={() => {
-              setOpenBookModal(false);
+              setOpenReturnModal(false);
             }}
             id="cancelBtn"
           >
@@ -59,4 +61,4 @@ function BookModal({ setOpenBookModal }) {
   );
 }
 
-export default BookModal;
+export default ReturnModal;

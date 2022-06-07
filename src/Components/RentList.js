@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import BookModal from "./BookModal";
-import './AddMovie.css';
+import ReturnModal from "./ReturnModal"
+import './RentList.css';
 import API from "../API";
 
 
-const AddMovie = ({ onAdd }) => {
+const RentList = ({ onAdd }) => {
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
   const [starring, setStarring] = useState("");
   const [movies, setMovies] = useState([]);
 
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalBookOpen, setModalBookOpen] = useState(false);
+  const [modalReturnOpen, setModalReturnOpen] = useState(false);
 
   useEffect(() => {
     refreshMovies();
@@ -52,24 +54,24 @@ const AddMovie = ({ onAdd }) => {
               <Button
                 className="openModalBtn"
                 onClick={() => {
-                  setModalOpen(true);
+                  setModalBookOpen(true);
                 }}
                 variant="primary"
               >
                 Book
               </Button>
-              {modalOpen && <BookModal setOpenModal={setModalOpen} />}
+              {modalBookOpen && <BookModal setOpenBookModal={setModalBookOpen} />}
               <Button
                 variant="primary"
                 type="button"
                 onClick={() => {
-                  setModalOpen(true);
+                  setModalReturnOpen(true);
                 }}
                 className="openModalBtn"
               >
                 Return
               </Button>
-              {modalOpen && <returnModal setOpenModal={setModalOpen} />}
+              {modalReturnOpen && <ReturnModal setOpenReturnModal={setModalReturnOpen} />}
             </div>
           </Form>
         </div>
@@ -113,4 +115,4 @@ const AddMovie = ({ onAdd }) => {
   );
 };
 
-export default AddMovie;
+export default RentList;
