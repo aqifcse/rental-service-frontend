@@ -46,6 +46,8 @@ const RentList = ({ onAdd }) => {
     API.post("/", item).then(() => refreshRents());
   };
 
+  
+
   function selectRent(id) {
     let item = rents.filter((rent) => rent.id === id)[0];
     setCode(item.code);
