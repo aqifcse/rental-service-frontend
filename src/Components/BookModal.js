@@ -4,6 +4,9 @@ import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./BookModal.css";
 
+import BookingConfirmModal from './BookingConfirmModal';
+
+
 const actions = [
   { label: "Add", value: 1 },
   { label: "Edit", value: 2 },
@@ -13,6 +16,9 @@ const actions = [
 function BookModal({ setOpenBookModal }) {
 
   const [value, onChange] = useState([new Date(), new Date()]);
+
+  const [modalBookingConfirmOpen, setModalBookingConfirmOpen] = useState(false);
+  
   
   return (
     <div className="modalBackground">
@@ -50,9 +56,16 @@ function BookModal({ setOpenBookModal }) {
             }}
             id="cancelBtn"
           >
-            Cancel
+            No
           </button>
-          <button>Confirm</button>
+          <button
+            type="button"
+            onClick={() => {
+              setModalBookingConfirmOpen(true);
+            }}
+            className="openModalBtn"
+          >Yes</button>
+          {modalBookingConfirmOpen && <BookingConfirmModal setOpenBookingConfirmModal={setModalBookingConfirmOpen} />}
         </div>
       </div>
     </div>

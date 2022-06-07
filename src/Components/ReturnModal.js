@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./ReturnModal.css";
+
+import ReturnConfirmModal from './ReturnConfirmModal';
 
 const actions = [
     { label: "Add", value: 1 },
@@ -11,6 +13,7 @@ const actions = [
   ];
 
 function ReturnModal({ setOpenReturnModal }) {
+    const [modalReturnConfirmOpen, setModalReturnConfirmOpen] = useState(false);
   
   return (
     <div className="modalBackground">
@@ -52,9 +55,16 @@ function ReturnModal({ setOpenReturnModal }) {
             }}
             id="cancelBtn"
           >
-            Cancel
+            No
           </button>
-          <button>Confirm</button>
+          <button
+            type="button"
+            onClick={() => {
+              setModalReturnConfirmOpen(true);
+            }}
+            className="openModalBtn"
+          >Yes</button>
+          {modalReturnConfirmOpen && <ReturnConfirmModal setOpenReturnConfirmModal={setModalReturnConfirmOpen} />}
         </div>
       </div>
     </div>
