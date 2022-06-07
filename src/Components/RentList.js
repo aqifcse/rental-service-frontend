@@ -16,6 +16,8 @@ const RentList = ({ onAdd }) => {
   const [modalBookOpen, setModalBookOpen] = useState(false);
   const [modalReturnOpen, setModalReturnOpen] = useState(false);
 
+  const [q, setQ] = useState("");
+
   useEffect(() => {
     refreshMovies();
   }, []);
@@ -47,6 +49,23 @@ const RentList = ({ onAdd }) => {
   }
   return (
     <div className="container mt-5">
+      <div className="searchbar">
+        <label htmlFor="search-form">
+          <input 
+            type="search"
+            name="search-form"
+            id="search-form"
+            className="search-input"
+            placeholder="Search"
+            value={q}
+            /*
+            // set the value of our useState q
+            //  anytime the user types in the search box
+            */
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </label>
+      </div>
       <div className="row">
         <div className="col-md-4">
           <Form onSubmit={onSubmit} className="mt-4">
