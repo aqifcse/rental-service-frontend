@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import BookModal from "./BookModal";
 import ReturnModal from "./ReturnModal"
 import './RentList.css';
 import API from "../API";
 
 
+// code, name, type, availability", needing_repair, durability, max_durability, mileage, price, minimum_rent_period
 const RentList = ({ onAdd }) => {
+  const [code, setCode] = useState("");
   const [name, setName] = useState("");
-  const [genre, setGenre] = useState("");
-  const [starring, setStarring] = useState("");
-  const [movies, setMovies] = useState([]);
+  const [type, setType] = useState("");
+  var [availability, setAvailability] = useState();
+  var [needing_repair, setNeedingRepair] = useState();
+  const [durability, setDurability] = useState("");
+  const [max_durability, setMaxDurability] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [price, setPrice] = useState("");
+  const [minimum_rent_period, setMinimumRentPeriod] = useState("");
+
+  const [rents, setRents] = useState([]);
 
 
   const [modalBookOpen, setModalBookOpen] = useState(false);
@@ -19,13 +28,13 @@ const RentList = ({ onAdd }) => {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    refreshMovies();
+    refreshRents();
   }, []);
 
-  const refreshMovies = () => {
+  const refreshRents = () => {
     API.get("/")
       .then((res) => {
-        setMovies(res.data);
+        setRents(res.data);
 
       })
       .catch(console.error);
@@ -33,19 +42,23 @@ const RentList = ({ onAdd }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    let item = { name, genre, starring };
-    API.post("/", item).then(() => refreshMovies());
+    let item = { code, name, type, availability, needing_repair, durability, max_durability, mileage, price, minimum_rent_period };
+    API.post("/", item).then(() => refreshRents());
   };
 
-  const onDelete = (id) => {
-    API.delete(`/${id}/`).then((res) => refreshMovies());
-  };
-
-  function selectMovie(id) {
-    let item = movies.filter((movie) => movie.id === id)[0];
+  function selectRent(id) {
+    let item = rents.filter((rent) => rent.id === id)[0];
+    setCode(item.code);
     setName(item.name);
-    setGenre(item.genre);
-    setStarring(item.starring);
+    setType(item.type);
+    setAvailability(item.availability);
+    setNeedingRepair(item.needing_repair);
+    setDurability(item.durability);
+    setMaxDurability(item.max_durability);
+    setMileage(item.mileage);
+    setPrice(item.price);
+    setMinimumRentPeriod(item.minimum_rent_period);
+
   }
   return (
     <div className="container mt-5">
@@ -68,8 +81,8 @@ const RentList = ({ onAdd }) => {
       </div>
       <div className="row">
         <div className="col-md-4">
-          <Form onSubmit={onSubmit} className="mt-4">
-            <div className="position-absolute top-50 start-50">
+
+            <div className="float-left">
               <Button
                 className="openModalBtn"
                 onClick={() => {
@@ -92,37 +105,40 @@ const RentList = ({ onAdd }) => {
               </Button>
               {modalReturnOpen && <ReturnModal setOpenReturnModal={setModalReturnOpen} />}
             </div>
-          </Form>
         </div>
         <div className="col-md-8 m">
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Movie Name</th>
-                <th scope="col">Genre</th>
-                <th scope="col">Starring</th>
-                <th scope="col"></th>
+                <th scope='col'>Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Type</th>
+                <th scope="col">Availability</th>
+                <th scope="col">Needing Repair</th>
+                <th scope="col">Durability</th>
+                <th scope="col">Max Durability</th>
+                <th scope="col">Mileage</th>
+                <th scope="col">Price</th>
+                <th scope="col">Minimum Rent Period</th>
               </tr>
             </thead>
             <tbody>
-              {movies.map((movie, index) => {
+              {rents.map((rent, index) => {
                 return (
                   <tr key="">
-                    <td> {movie.name}</td>
-                    <td>{movie.genre}</td>
-                    <td>{movie.starring}</td>
-                    <td>
-                      <i
-                        className="fa fa-pencil-square text-primary d-inline"
-                        aria-hidden="true"
-                        onClick={() => selectMovie(movie.id)}
-                      ></i>
-                      <i
-                        className="fa fa-trash-o text-danger d-inline mx-3"
-                        aria-hidden="true"
-                        onClick={() => onDelete(movie.id)}
-                      ></i>
-                    </td>
+                    <td> {rent.id}</td>
+                    <td> {rent.name}</td>
+                    <td> {rent.code}</td>
+                    <td>{rent.type}</td>
+                    <td>{String(rent.availability)}</td>
+                    <td>{String(rent.needing_repair)}</td>
+                    <td>{rent.durability}</td>
+                    <td>{rent.max_durability}</td>
+                    <td>{rent.mileage}</td>
+                    <td>{rent.price}</td>
+                    <td>{rent.minimum_rent_period}</td>
+                    
                   </tr>
                 );
               })}
