@@ -5,6 +5,10 @@ import ReturnModal from "./ReturnModal"
 import './RentList.css';
 import API from "../API";
 
+import axios from 'axios';
+
+
+
 
 // code, name, type, availability", needing_repair, durability, max_durability, mileage, price, minimum_rent_period
 const RentList = ({ onAdd }) => {
@@ -28,8 +32,20 @@ const RentList = ({ onAdd }) => {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    refreshRents();
-  }, []);
+    const fetchData = async () => {
+
+      await axios.get(`https://morning-sands-52405.herokuapp.com/searchRentalInfo/?search=${q}`).then((res) => {
+        setRents(res.data);
+
+      })
+      .catch(console.error);
+        
+    }
+
+    fetchData()
+}, [q])
+
+  
 
   const refreshRents = () => {
     API.get("/")
@@ -64,22 +80,13 @@ const RentList = ({ onAdd }) => {
   }
   return (
     <div className="container mt-5">
-      <div className="searchbar">
-        <label htmlFor="search-form">
-          <input 
-            type="search"
-            name="search-form"
-            id="search-form"
-            className="search-input"
-            placeholder="Search"
-            value={q}
-            /*
-            // set the value of our useState q
-            //  anytime the user types in the search box
-            */
-            onChange={(e) => setQ(e.target.value)}
-          />
-        </label>
+      <div className="search">
+        <input type="text"
+          placeholder={"Search Character"}
+          className={"input"}
+          onChange={event => setQ(event.target.value)}
+          value={q}
+        />
       </div>
       <div className="row">
         <div className="col-md-4">
