@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import BookModal from "./BookModal";
 import ReturnModal from "./ReturnModal"
 import './RentList.css';
-import API from "../API";
 
 import axios from 'axios';
 
@@ -12,16 +11,6 @@ import axios from 'axios';
 
 // code, name, type, availability", needing_repair, durability, max_durability, mileage, price, minimum_rent_period
 const RentList = ({ onAdd }) => {
-  const [code, setCode] = useState("");
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  var [availability, setAvailability] = useState();
-  var [needing_repair, setNeedingRepair] = useState();
-  const [durability, setDurability] = useState("");
-  const [max_durability, setMaxDurability] = useState("");
-  const [mileage, setMileage] = useState("");
-  const [price, setPrice] = useState("");
-  const [minimum_rent_period, setMinimumRentPeriod] = useState("");
 
   const [rents, setRents] = useState([]);
 
@@ -38,46 +27,13 @@ const RentList = ({ onAdd }) => {
         setRents(res.data);
 
       })
-      .catch(console.error);
-        
+        .catch(console.error);
+
     }
 
     fetchData()
-}, [q])
+  }, [q])
 
-  
-
-  const refreshRents = () => {
-    API.get("/")
-      .then((res) => {
-        setRents(res.data);
-
-      })
-      .catch(console.error);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    let item = { code, name, type, availability, needing_repair, durability, max_durability, mileage, price, minimum_rent_period };
-    API.post("/", item).then(() => refreshRents());
-  };
-
-  
-
-  function selectRent(id) {
-    let item = rents.filter((rent) => rent.id === id)[0];
-    setCode(item.code);
-    setName(item.name);
-    setType(item.type);
-    setAvailability(item.availability);
-    setNeedingRepair(item.needing_repair);
-    setDurability(item.durability);
-    setMaxDurability(item.max_durability);
-    setMileage(item.mileage);
-    setPrice(item.price);
-    setMinimumRentPeriod(item.minimum_rent_period);
-
-  }
   return (
     <div className="container mt-5">
       <div className="search">
