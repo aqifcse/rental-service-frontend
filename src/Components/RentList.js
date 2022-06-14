@@ -6,9 +6,6 @@ import './RentList.css';
 
 import axios from 'axios';
 
-
-
-
 // code, name, type, availability", needing_repair, durability, max_durability, mileage, price, minimum_rent_period
 const RentList = ({ onAdd }) => {
 

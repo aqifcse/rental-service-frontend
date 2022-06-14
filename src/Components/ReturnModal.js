@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./ReturnModal.css";
 
@@ -19,7 +18,7 @@ function ReturnModal({ setOpenReturnModal }) {
     <div className="modalBackground">
       <div className="modalContainer">
 
-      <div className="titleCloseBtn">
+        <div className="titleCloseBtn">
           <button
             onClick={() => {
               setOpenReturnModal(false);
@@ -30,42 +29,39 @@ function ReturnModal({ setOpenReturnModal }) {
         </div>
         <h1>Return a Product</h1>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4"></div>
-            <div className="col-md-4">
-              <Select options={actions} />
-            </div>
-            <div className="col-md-4"></div>
-          </div>
-        </div>
+        <form>
 
-        <Form className="mt-4">
-            <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Control
-                type="text"
-              />
-            </Form.Group>
-        </Form>
-        
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenReturnModal(false);
-            }}
-            id="cancelBtn"
-          >
-            No
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setModalReturnConfirmOpen(true);
-            }}
-            className="openModalBtn"
-          >Yes</button>
-          {modalReturnConfirmOpen && <ReturnConfirmModal setOpenReturnConfirmModal={setModalReturnConfirmOpen} />}
-        </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4"></div>
+              <div className="col-md-4">
+                <Select options={actions} />
+              </div>
+              <div className="col-md-4"></div>
+            </div>
+          </div>
+           
+          <input type="text"/>
+
+          <div className="footer">
+            <button
+              onClick={() => {
+                setOpenReturnModal(false);
+              }}
+              id="cancelBtn"
+            >
+              No
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setModalReturnConfirmOpen(true);
+              }}
+              className="openModalBtn"
+            >Yes</button>
+            {modalReturnConfirmOpen && <ReturnConfirmModal setOpenReturnConfirmModal={setModalReturnConfirmOpen} />}
+          </div>
+        </form>
       </div>
     </div>
   );

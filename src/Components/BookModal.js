@@ -24,7 +24,7 @@ function BookModal({ setOpenBookModal }) {
     <div className="modalBackground">
       <div className="modalContainer">
 
-      <div className="titleCloseBtn">
+        <div className="titleCloseBtn">
           <button
             onClick={() => {
               setOpenBookModal(false);
@@ -34,39 +34,41 @@ function BookModal({ setOpenBookModal }) {
           </button>
         </div>
         <h1>Book a Product</h1>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4"></div>
-            <div className="col-md-4">
-              <Select options={actions} />
+        <form>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4"></div>
+              <div className="col-md-4">
+                <Select options={actions} />
+              </div>
+              <div className="col-md-4"></div>
             </div>
-            <div className="col-md-4"></div>
           </div>
-        </div>
 
-        <div>
-          <DateRangePicker onChange={onChange} value={value} />
-        </div>
-        
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenBookModal(false);
-            }}
-            id="cancelBtn"
-          >
-            No
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setModalBookingConfirmOpen(true);
-            }}
-            className="openModalBtn"
-          >Yes</button>
-          {modalBookingConfirmOpen && <BookingConfirmModal setOpenBookingConfirmModal={setModalBookingConfirmOpen} />}
-        </div>
+          <div>
+            <DateRangePicker onChange={onChange} value={value} />
+          </div>
+
+          <div className="footer">
+            <button
+              onClick={() => {
+                setOpenBookModal(false);
+              }}
+              id="cancelBtn"
+            >
+              No
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setModalBookingConfirmOpen(true);
+              }}
+              className="openModalBtn"
+            >Yes</button>
+            {modalBookingConfirmOpen && <BookingConfirmModal setOpenBookingConfirmModal={setModalBookingConfirmOpen} />}
+
+          </div>
+        </form>
       </div>
     </div>
   );
